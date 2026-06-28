@@ -172,3 +172,47 @@ body {
     animation: none;
   }
 }
+
+/* Demo step reveal + audit scan line */
+@keyframes mem-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mem-reveal {
+  animation: mem-reveal 0.35s ease-out both;
+}
+
+@keyframes mem-scanline {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100% - 2px));
+    opacity: 0;
+  }
+}
+
+.mem-scanline {
+  animation: mem-scanline 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mem-reveal,
+  .mem-scanline {
+    animation: none;
+  }
+}
