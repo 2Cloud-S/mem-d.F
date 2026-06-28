@@ -1,5 +1,6 @@
 import { ArrowRight, ArrowDown, ShieldCheck, GitBranch, Ban, CircleAlert } from "lucide-react"
 import { Pill } from "@/components/ui/pill"
+import { HeroMemoryBackground } from "@/components/hero-memory-background"
 
 const rawMemory = [
   "User prefers JavaScript",
@@ -46,6 +47,7 @@ export function HeroDemo() {
   return (
     <section id="top" className="relative overflow-hidden border-b border-border-subtle">
       <div className="bg-grid absolute inset-0 opacity-40" aria-hidden="true" />
+      <HeroMemoryBackground />
       <div
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent"
         aria-hidden="true"
