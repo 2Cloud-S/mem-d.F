@@ -7,22 +7,21 @@ import {
   Footprints,
   Users,
   LifeBuoy,
-  ArrowRight,
+  Layers,
 } from "lucide-react"
 import { SectionHeading } from "@/components/ui/section-heading"
+import { WorkerRoutingGraphic } from "@/components/worker-routing-graphic"
 
 const workers = [
   { icon: MessagesSquare, name: "Claude Export Worker" },
   { icon: Bot, name: "ChatGPT Export Worker" },
-  { icon: Boxes, name: "LangChain Memory Worker" },
-  { icon: Plug, name: "MCP Memory Worker" },
   { icon: FileJson, name: "JSON Memory Worker" },
-  { icon: Footprints, name: "Agent Trace Worker" },
+  { icon: Plug, name: "MCP Memory Worker" },
+  { icon: Boxes, name: "LangChain Memory Worker" },
   { icon: Users, name: "CRM Memory Worker" },
   { icon: LifeBuoy, name: "Support Memory Worker" },
+  { icon: Footprints, name: "Agent Trace Worker" },
 ]
-
-const flow = ["Workers", "Normalized memory", "Mem-D core", "Governed context", "Agent / LLM / MCP"]
 
 export function WorkersSection() {
   return (
@@ -30,47 +29,41 @@ export function WorkersSection() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <SectionHeading
           eyebrow="Workers / connectors"
-          title="Connect memory from anywhere."
-          description="Mem-D workers normalize external memory into a governable format. Workers are adapters — Mem-D remains the governance core."
+          title="Adapters in. Governance stays in the core."
+          description="Mem-D workers normalize external memory sources into a governable format — they adapt, they never execute."
         />
 
         <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {workers.map((w) => (
             <div
               key={w.name}
-              className="flex items-center gap-3 rounded-lg border border-border-subtle bg-surface p-4 transition-colors hover:border-primary/30"
+              className="flex items-center gap-3 border border-border-subtle bg-surface p-3.5 transition-colors hover:border-primary/30"
+              style={{ borderRadius: "var(--radius-md)" }}
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border-subtle bg-surface-2">
-                <w.icon className="h-4.5 w-4.5 text-primary" aria-hidden="true" />
+              <span
+                className="flex h-8 w-8 shrink-0 items-center justify-center border border-border-subtle bg-surface-2"
+                style={{ borderRadius: "var(--radius-sm)" }}
+              >
+                <w.icon className="h-4 w-4 text-primary" aria-hidden="true" />
               </span>
               <span className="text-sm font-medium text-foreground">{w.name}</span>
             </div>
           ))}
         </div>
 
-        {/* Flow diagram */}
-        <div className="mt-8 overflow-hidden rounded-lg border border-border-subtle bg-surface p-4 sm:p-6">
-          <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:items-center lg:justify-between">
-            {flow.map((node, i) => (
-              <div key={node} className="flex items-center gap-3 lg:flex-1">
-                <div
-                  className={`flex flex-1 items-center justify-center rounded-md border px-3 py-3 text-center font-mono text-xs ${
-                    node === "Mem-D core"
-                      ? "border-primary/40 bg-primary/10 text-[color:var(--electric)]"
-                      : "border-border-subtle bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {node}
-                </div>
-                {i < flow.length - 1 ? (
-                  <ArrowRight
-                    className="hidden h-4 w-4 shrink-0 text-border-subtle lg:block"
-                    aria-hidden="true"
-                  />
-                ) : null}
-              </div>
-            ))}
-          </div>
+        <div className="mt-6">
+          <WorkerRoutingGraphic />
+        </div>
+
+        <div
+          className="mt-6 flex items-start gap-3 border border-border-subtle bg-surface px-4 py-3.5"
+          style={{ borderRadius: "var(--radius-md)" }}
+        >
+          <Layers className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+          <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+            <span className="text-foreground">Workers adapt memory sources.</span> Mem-D remains
+            the governance core. No worker mutates or executes anything.
+          </p>
         </div>
       </div>
     </section>

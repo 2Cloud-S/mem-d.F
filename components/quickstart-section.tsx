@@ -14,8 +14,8 @@ const commands = [
     code: "python -m memd analyze memories.json --format json --output report.json",
   },
   {
-    label: "Run the agent memory demo",
-    code: "python scripts/run_agent_memory_demo.py",
+    label: "Run the workflow evaluation",
+    code: "python scripts/run_workflow_evaluation.py",
   },
 ]
 

@@ -141,6 +141,19 @@ export function HeroMemoryBackground() {
           ))}
         </g>
 
+        {/* Governed context exit label */}
+        <text
+          x="1146"
+          y="242"
+          fill="var(--electric)"
+          fillOpacity="0.34"
+          fontSize="9"
+          fontFamily="var(--font-mono)"
+          letterSpacing="0.12em"
+        >
+          context
+        </text>
+
         {/* Governed node column (right) */}
         <g fontFamily="var(--font-mono)" fontSize="8" letterSpacing="0.08em">
           {governedNodes.map((n, i) => (

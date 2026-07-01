@@ -1,43 +1,46 @@
-import { Database, Cpu, FileOutput, ArrowRight, Layers } from "lucide-react"
+import { Database, Plug, Cpu, FileOutput, Bot, ArrowDown, Layers } from "lucide-react"
 import { SectionHeading } from "@/components/ui/section-heading"
 
-const columns = [
+const coreModules = [
+  "Category Audit",
+  "Duplicate Detection",
+  "Lifecycle Analysis",
+  "Recommendation Engine",
+  "Simulation Engine",
+  "Workflow Planner",
+  "Evaluation Benchmarks",
+]
+
+const layers = [
   {
     icon: Database,
-    title: "Memory sources",
-    items: [
-      "Agent memory stores",
-      "Chat exports",
-      "CRM notes",
-      "Project docs",
-      "Support logs",
-    ],
+    title: "Memory Sources",
+    items: ["Agent memory stores", "Chat exports", "CRM notes", "Support logs"],
+    highlight: false,
+  },
+  {
+    icon: Plug,
+    title: "Workers / Normalizers",
+    items: ["Source adapters", "Normalized memory format"],
+    highlight: false,
   },
   {
     icon: Cpu,
-    title: "Mem-D core",
+    title: "Mem-D Core",
+    items: coreModules,
     highlight: true,
-    items: [
-      "Parser",
-      "Category audit",
-      "Duplicate detection",
-      "Lifecycle analysis",
-      "Recommendation engine",
-      "Simulation engine",
-      "Workflow planner",
-      "Evaluation benchmarks",
-    ],
   },
   {
     icon: FileOutput,
-    title: "Outputs",
-    items: [
-      "Reports",
-      "Workflow plans",
-      "Review queues",
-      "Governed memory context",
-      "Connector responses",
-    ],
+    title: "Reports + Workflow Plans + Governed Context",
+    items: ["Reports", "Workflow plans", "Review queues", "Governed memory context"],
+    highlight: false,
+  },
+  {
+    icon: Bot,
+    title: "Agent / LLM / MCP",
+    items: ["Custom agents", "LLM apps", "MCP clients", "LangChain stacks"],
+    highlight: false,
   },
 ]
 
@@ -47,63 +50,70 @@ export function ArchitectureSection() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <SectionHeading
           eyebrow="Architecture"
-          title="A governance core with clean boundaries."
-          description="Framework-independent. No LangChain or sentence-transformers dependency required."
+          title="Middleware between memory and the model."
+          description="Framework-independent. Mem-D governs the memory layer without owning your stack."
         />
 
-        <div className="mt-10 grid items-stretch gap-3 lg:grid-cols-[1fr_auto_1.4fr_auto_1fr]">
-          {columns.map((col, idx) => (
-            <div key={col.title} className="contents">
+        <div className="mx-auto mt-10 flex max-w-3xl flex-col items-stretch">
+          {layers.map((layer, i) => (
+            <div key={layer.title} className="flex flex-col items-center">
               <div
-                className={`flex flex-col rounded-lg border p-5 ${
-                  col.highlight
+                className={`w-full border p-4 sm:p-5 ${
+                  layer.highlight
                     ? "border-primary/40 bg-primary/[0.07]"
                     : "border-border-subtle bg-surface"
                 }`}
+                style={{ borderRadius: "var(--radius-md)" }}
               >
-                <div className="mb-4 flex items-center gap-2.5">
+                <div className="mb-3 flex items-center gap-2.5">
                   <span
-                    className={`flex h-8 w-8 items-center justify-center rounded-md border ${
-                      col.highlight
+                    className={`flex h-7 w-7 items-center justify-center border ${
+                      layer.highlight
                         ? "border-primary/40 bg-primary/15"
                         : "border-border-subtle bg-surface-2"
                     }`}
+                    style={{ borderRadius: "var(--radius-sm)" }}
                   >
-                    <col.icon
-                      className={`h-4 w-4 ${col.highlight ? "text-[color:var(--electric)]" : "text-primary"}`}
+                    <layer.icon
+                      className={`h-4 w-4 ${layer.highlight ? "text-[color:var(--electric)]" : "text-primary"}`}
                       aria-hidden="true"
                     />
                   </span>
-                  <h3 className="text-sm font-semibold text-foreground">{col.title}</h3>
+                  <h3
+                    className={`text-sm font-semibold ${layer.highlight ? "text-[color:var(--electric)]" : "text-foreground"}`}
+                  >
+                    {layer.title}
+                  </h3>
                 </div>
-                <ul className="flex flex-col gap-1.5">
-                  {col.items.map((item) => (
+                <ul className="flex flex-wrap gap-1.5">
+                  {layer.items.map((item) => (
                     <li
                       key={item}
-                      className="rounded-md border border-border-subtle bg-muted px-3 py-1.5 font-mono text-xs text-muted-foreground"
+                      className="border border-border-subtle bg-muted px-2.5 py-1 font-mono text-xs text-muted-foreground"
+                      style={{ borderRadius: "var(--radius-sm)" }}
                     >
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
-              {idx < columns.length - 1 ? (
-                <div className="flex items-center justify-center py-1">
-                  <ArrowRight
-                    className="h-4 w-4 rotate-90 text-border-subtle lg:rotate-0"
-                    aria-hidden="true"
-                  />
+              {i < layers.length - 1 ? (
+                <div className="flex h-8 items-center justify-center" aria-hidden="true">
+                  <ArrowDown className="h-4 w-4 text-primary/60" />
                 </div>
               ) : null}
             </div>
           ))}
         </div>
 
-        <div className="mt-6 flex items-start gap-3 rounded-lg border border-border-subtle bg-surface px-4 py-3.5">
+        <div
+          className="mx-auto mt-8 flex max-w-3xl items-start gap-3 border border-border-subtle bg-surface px-4 py-3.5"
+          style={{ borderRadius: "var(--radius-md)" }}
+        >
           <Layers className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
           <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-            Integrates beside LangChain, MCPs, custom agents, and LLM apps — Mem-D governs the
-            memory layer without owning your stack.
+            No LangChain or sentence-transformers dependency required. Mem-D integrates beside
+            LangChain, MCPs, custom agents, and LLM apps.
           </p>
         </div>
       </div>
